@@ -108,7 +108,7 @@ export const experiences = [
         iconBg: "#fbc3bc",
         date: "Nov 2023 - Curr",
         points: [
-            "Developing and maintaining website for Career Pakistan, Career Sausi and Lavitas",
+            "Developing and maintaining website for Career Pakistan, Career Saudi and Lavitas",
             "Collaborating with cross-functional teams.",
             "Implementing responsive design and ensuring cross-browser compatibility.",
             "Participating in quality assurance for website and providing constructive feedback to other developers.",
