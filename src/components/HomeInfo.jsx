@@ -26,14 +26,14 @@ const renderContent ={
     ),
     3:(
         <InfoBox
-        text='Devloped multiple Project .Curious about that?'
+        text='Developed multiple Project. Curious about that?'
         link='/projects'
         btnText='Visit my portfolio'
         />
     ),
     4:(
         <InfoBox
-        text='Need a project done or looking for a dev? I am just a few keystrocks away'
+        text='Need a project done or looking for a dev? I am just a few keystrocks away!'
         link='/contact'
         btnText='Lets Talk'
         />
