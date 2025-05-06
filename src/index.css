@@ -53,7 +53,22 @@ body:has(.card[data-color="green"]:hover) {
   }
 
   .btn {
-    @apply text-white bg-gradient-to-r from-[#00c6ff] to-[#0072ff] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center;
+    @apply text-white bg-gradient-to-r from-[#00c6ff] to-[#0072ff] 
+           focus:ring-4 focus:outline-none focus:ring-blue-300 
+           font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center 
+           transition-all duration-300 ease-in-out;
+           
+   
+    background-size: 200% auto; 
+    background-position: 0% center; 
+    transform-origin: center; 
+  }
+  
+  .btn:hover {
+   
+    @apply shadow-lg; 
+    background-position: 100% center; 
+    animation: btnWiggle 0.4s ease-in-out forwards; 
   }
 
   .header {
@@ -112,12 +127,13 @@ body:has(.card[data-color="green"]:hover) {
   z-index: -1;
   width: inherit;
   height: inherit;
+  background: linear-gradient(135deg, rgba(0, 114, 255, 0.1), rgba(0, 198, 255, 0.15)); 
   transition: 250ms;
   transform-style: preserve-3d;
   transform-origin: bottom right;
   transform: rotateZ(15deg);
   will-change: transform;
-  box-shadow: 16px 0 40px #e4e4e4;
+  box-shadow: 16px 0 40px rgba(228, 228, 228, 0.7); 
 }
 
 .block-container .btn-back-red {
@@ -154,9 +170,10 @@ body:has(.card[data-color="green"]:hover) {
   z-index: 1;
   width: inherit;
   height: inherit;
-  background-color: #ffffff33;
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  background-color: #ffffffA0;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   transition: 250ms;
   transform-style: preserve-3d;
   transform-origin: top left;
@@ -171,7 +188,7 @@ body:has(.card[data-color="green"]:hover) {
   transform: translateZ(80px) translateY(-5px) rotateX(15deg) rotateY(15deg);
 }
 
-/* Neo Brutalism */
+
 .neo-brutalism-blue {
   background: #2b77e7;
   position: relative;
@@ -186,5 +203,23 @@ body:has(.card[data-color="green"]:hover) {
   border: #fff;
   box-shadow: 0.6vmin 0.6vmin #fff, 1vmin 1vmin #d2e4ff, 1vmin 1vmin #d2e4ff,
     0.65vmin 1vmin #d2e4ff, 1vmin 0.65vmin #d2e4ff;
+}
+
+.animated-gradient-bg {
+  background: linear-gradient(135deg, #e0f7fa, #e1f5fe, #f1f8e9, #fffde7);
+  background-size: 400% 400%; 
+  animation: gradientAnimation 25s ease infinite; 
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes btnWiggle {
+  0%, 100% { transform: rotate(0deg) scale(1.05); }
+  25% { transform: rotate(-2deg) scale(1.05); }
+  75% { transform: rotate(2deg) scale(1.05); }
 }
 

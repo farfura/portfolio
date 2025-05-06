@@ -1,4 +1,4 @@
-import { meta, shopify, starbucks, tesla,bytewise,career } from "../assets/images";
+import { meta, shopify, starbucks, tesla, bytewise, career, hero, skillsprint, bank, ecom } from "../assets/images";
 import {
     car,
     contact,
@@ -10,7 +10,7 @@ import {
     html,
     javascript,
     linkedin,
-   
+    mongodb,
     nextjs,
     nodejs,
     pricewise,
@@ -83,40 +83,60 @@ export const skills = [
         imageUrl: typescript,
         name: "TypeScript",
         type: "Frontend",
+    },
+    {
+        imageUrl: mongodb,
+        name: "MongoDB",
+        type: "Database",
+    },
+    /*
+    {
+        imageUrl: mern,
+        name: "MERN Stack",
+        type: "FullStack",
     }
+    */
 ];
 
 export const experiences = [
     {
-        title: "Fellowship Front end",
-        company_name: "Bytewise",
+        title: "MERN Stack Front-End Developer",
+        company_name: "The Orange Club",
         icon: bytewise,
-        iconBg: "#accbe1",
-        date: "March 2023 - June 2023",
+        iconBg: "#ff8c00",
+        date: "Feb 2025 - Present",
         points: [
-            
-            "Developing and maintaining web applications using React.js, HTML,CSS, and Boootstrap",
-            "Collaborating with team members.",
-            "Implementing responsive design and ensuring cross-browser compatibility.",
-            "Participating in code reviews and providing constructive feedback to other developers.",
+            "Built the front-end from scratch using Figma designs, Next.js, Tailwind CSS, and Payload CMS, ensuring responsive and scalable UI across all devices.",
+            "Developed an interactive map-based web app using React.js, integrating MapTiler and Leaflet for dynamic route rendering and user interactions.",
+            "Integrated RESTful APIs with dynamic Next.js routing and optimized performance through efficient state management and debugging.",
         ],
     },
     {
-        title: "Web Developer Intern",
+        title: "Web and Operations Executive",
         company_name: "Career Pakistan",
         icon: career,
         iconBg: "#fbc3bc",
-        date: "Nov 2023 - Curr",
+        date: "Oct 2023 - Mar 2025",
         points: [
-            "Developing and maintaining website for Career Pakistan, Career Saudi and Lavitas",
-            "Collaborating with cross-functional teams.",
-            "Implementing responsive design and ensuring cross-browser compatibility.",
-            "Participating in quality assurance for website and providing constructive feedback to other developers.",
-            "Closely working with CEO to launch a new multinational project related to web development.",
+            "Developed and maintained dynamic, responsive websites for Career Pakistan, Career Saudi and Lavitas using cutting-edge frameworks like Next.js and React, ensuring robust performance and scalability.",
+            "Took part in the recruitment and development of intern teams.",
+            "Closely working with the CEO to launch a new multinational project related to web development and project management of previous uprunning projects.",
+
 
         ],
     },
-   
+    {
+        title: "Frontend fellowship",
+        company_name: "Bytewise",
+        icon: bytewise,
+        iconBg: "#accbe1",
+        date: "Mar 2023 - June 2023",
+        points: [
+            "Developed web applications using Next js, React.js, Tailwind, Shadcn, Material UI and the Bootstrap framework, ensuring responsive design and optimal performance across all devices.",
+            "Collaborated with team members to meet project goals.",
+            "Participated in code reviews and provided constructive feedback to other developers.",
+        ],
+    },
 ];
 
 export const socialLinks = [
@@ -141,9 +161,10 @@ export const projects = [
     {
         iconUrl: pricewise,
         theme: 'btn-back-red',
-        name: 'Personal Blog',
-        description: 'Developed a blog using HTML, CSS, and JavaScript. Designed this responsive blog with compatibility across various screen resolutions using media queries.',
-        link: 'https://farfura.github.io/Blog-Project-1/',
+        name: 'Skillsprint',
+        description: 'Built an AI-powered career recommendation platform using Flask and Python. Implemented a Random Forest Classifier to analyze user inputs and suggest suitable career paths. Developed an interactive frontend with Next.js and TypeScript. Integrated ether.js to handle blockchain-based payment subscriptions.',
+        link: 'https://skill-sprint-delta.vercel.app/',
+        showcaseImageUrl: skillsprint
     },
     {
         iconUrl: threads,
@@ -158,6 +179,7 @@ export const projects = [
         name: 'Ecommerce webpage',
         description: 'Designed this parallax webpage for skincare brands using Tailwind.',
         link: 'https://majestic-zabaione-741ab3.netlify.app',
+        showcaseImageUrl: ecom
     },
     {
         iconUrl: snapgram,
@@ -172,6 +194,7 @@ export const projects = [
         name: 'Bank Webpage',
         description: 'This webpage was designed using react and tailwind. It makes use of reusability feature of react.',
         link: 'https://64d4c06e14ebf7557c03f401--cute-hamster-adb06b.netlify.app',
+        showcaseImageUrl: bank
     },
     
 ];
