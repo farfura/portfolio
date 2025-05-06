@@ -6,6 +6,9 @@ import tesla from './tesla.png'
 import logo from './logo.svg'
 import career from './career.png'
 import bytewise from './bytewise.png'
+import skillsprint from './skillsprint.png'
+import bank from './bank.png'
+import ecom from './ecom.png'
 
 export {
     hero,
@@ -15,5 +18,8 @@ export {
     tesla,
     logo,
     career,
-    bytewise
+    bytewise,
+    skillsprint,
+    bank,
+    ecom
 }
