@@ -20,7 +20,9 @@ const Home = ({ introPlayed, setIntroPlayed }) => {
   const [loadingProgress, setLoadingProgress] = useState(0)
   const [soundEnabled, setSoundEnabled] = useState(false)
   const audioRef = useRef(null)
-
+  
+  // New state for mobile drag instruction
+  const [showMobileInstruction, setShowMobileInstruction] = useState(false)
 
   useEffect(() => {
     if (showIntro) {
@@ -68,6 +70,25 @@ const Home = ({ introPlayed, setIntroPlayed }) => {
       return () => clearTimeout(timer);
     }
   }, [isLoaded, showIntro]); 
+
+  useEffect(() => {
+    if (isLoaded && !showIntro) {
+      // Check if it's mobile
+      const isMobile = window.innerWidth <= 768;
+      
+      if (isMobile) {
+        // Show mobile instruction
+        setShowMobileInstruction(true);
+        
+        // Hide after 3 seconds
+        const timer = setTimeout(() => {
+          setShowMobileInstruction(false);
+        }, 3000);
+        
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [isLoaded, showIntro]);
 
   const IntroOverlay = () => {
     const [isMobile, setIsMobile] = useState(false);
@@ -455,6 +476,22 @@ const Home = ({ introPlayed, setIntroPlayed }) => {
         {showIntro && <IntroOverlay />}
       </AnimatePresence>
       
+      {/* Mobile Instruction Overlay */}
+      <AnimatePresence>
+        {showMobileInstruction && (
+          <motion.div 
+            className="fixed inset-0 flex items-center justify-center z-20 pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="bg-black bg-opacity-60 text-white px-6 py-4 rounded-lg text-center max-w-xs">
+              <p className="text-lg font-medium">Drag to rotate the island</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
    
       <div className='absolute top-28 left-0 right-0 z-10 flex items-center justify-center'>
         {currentStage && <HomeInfo currentStage={currentStage}/>}
@@ -489,9 +526,9 @@ const Home = ({ introPlayed, setIntroPlayed }) => {
         </Suspense>
       </Canvas>
       
-     
+      {/* Desktop instructions - hide on small screens */}
       <div className="absolute bottom-6 left-4 sm:left-6 md:left-0 right-28 sm:right-28 md:right-0 
-                      flex justify-center items-center pointer-events-none z-10">
+                    flex justify-center items-center pointer-events-none z-10 hidden sm:flex">
         <p className="px-4 py-2 bg-black bg-opacity-40 dark:bg-opacity-50 rounded-full text-xs sm:text-sm text-center text-white">
           Use arrow keys or drag to rotate the island
         </p>
