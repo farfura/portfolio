@@ -9,6 +9,9 @@ import bytewise from './bytewise.png'
 import skillsprint from './skillsprint.png'
 import bank from './bank.png'
 import ecom from './ecom.png'
+import university from './university.png'
+import movie from './movie.png'
+import toc from './toc.jpeg'
 
 export {
     hero,
@@ -21,5 +24,8 @@ export {
     bytewise,
     skillsprint,
     bank,
-    ecom
+    ecom,
+    university,
+    movie,
+    toc
 }

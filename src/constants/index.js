@@ -1,4 +1,4 @@
-import { meta, shopify, starbucks, tesla, bytewise, career, hero, skillsprint, bank, ecom } from "../assets/images";
+import { meta, shopify, starbucks, tesla, bytewise, career, hero, skillsprint, bank, ecom, university, movie, toc } from "../assets/images";
 import {
     car,
     contact,
@@ -102,7 +102,7 @@ export const experiences = [
     {
         title: "MERN Stack Front-End Developer",
         company_name: "The Orange Club",
-        icon: bytewise,
+        icon: toc,
         iconBg: "#ff8c00",
         date: "Feb 2025 - Present",
         points: [
@@ -172,6 +172,7 @@ export const projects = [
         name: 'University Webpage',
         description: 'Developed using HTML and Bootstraps pre-existing classes were used to successfully craft a webpage that is responsive across all screen dimensions.',
         link: 'https://farfura.github.io/Bootstrap-project/',
+        showcaseImageUrl: university
     },
     {
         iconUrl: car,
@@ -187,6 +188,7 @@ export const projects = [
         name: 'Movie Webpage',
         description: 'Designed a webpage for browsing movies, implementing React, and APIs',
         link: 'https://polite-frangipane-7e4c79.netlify.app',
+        showcaseImageUrl: movie
     },
     {
         iconUrl: estate,
