@@ -32,7 +32,7 @@ const Home = ({ introPlayed, setIntroPlayed }) => {
 
   useEffect(() => {
     let interval;
-    if (showIntro && !isLoaded) { // Run only if intro is showing
+    if (!showIntro && !isLoaded) { // Only run if intro is NOT showing and content isn't loaded
       interval = setInterval(() => {
         setLoadingProgress(prev => {
           const newProgress = prev + (Math.random() * 10);
@@ -120,18 +120,6 @@ const Home = ({ introPlayed, setIntroPlayed }) => {
         >
           Skip
         </motion.button>
-
-
-        {showIntro && loadingProgress < 100 && (
-          <div className="absolute top-0 left-0 right-0 h-[3px] z-[120]">
-            <motion.div 
-              className="h-full fun-loader"
-              initial={{ width: "0%" }}
-              animate={{ width: `${loadingProgress}%` }}
-              transition={{ duration: 0.3 }}
-            />
-          </div>
-        )}
 
       
         <motion.div
@@ -477,7 +465,7 @@ const Home = ({ introPlayed, setIntroPlayed }) => {
         camera={{near:0.1, far:1000}}
         onCreated={() => setIsLoaded(true)}
       >
-        <Suspense fallback={<Loader/>}>
+        <Suspense fallback={!showIntro ? <Loader/> : null}>
           <directionalLight position={[1,1,1]} intensity={1}/>
           <ambientLight intensity={0.5}/>
           <spotLight/>
@@ -502,9 +490,7 @@ const Home = ({ introPlayed, setIntroPlayed }) => {
       </Canvas>
       
      
-      <div className="absolute bottom-10 left-4 right-[7.5rem] 
-                      sm:left-6 sm:right-6 
-                      md:left-0 md:right-0 
+      <div className="absolute bottom-6 left-4 sm:left-6 md:left-0 right-28 sm:right-28 md:right-0 
                       flex justify-center items-center pointer-events-none z-10">
         <p className="px-4 py-2 bg-black bg-opacity-40 dark:bg-opacity-50 rounded-full text-xs sm:text-sm text-center text-white">
           Use arrow keys or drag to rotate the island
