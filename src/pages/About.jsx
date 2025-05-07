@@ -217,13 +217,23 @@ const About = () => {
                 > 
                    
                    <div 
-                    className='relative z-0 flex justify-center items-center w-16 h-16 rounded-full bg-white shadow-lg border-2' // Increased shadow, border size
-                    style={{ borderColor: experience.iconBg }}
+                    className='relative z-0 flex justify-center items-center w-20 h-20 rounded-full bg-white shadow-lg'
+                    style={{ 
+                      borderWidth: experience.company_name === "The Orange Club" || experience.company_name === "Career Pakistan" || experience.company_name === "Bytewise" ? "1.75px" : "1.75px",
+                      borderStyle: "solid",
+                      borderColor: experience.company_name === "Career Pakistan" ? "#6b4896" : 
+                                  experience.company_name === "Bytewise" ? "#000000" : 
+                                  experience.iconBg,
+                      overflow: "hidden"
+                    }}
                   >
                     <img 
                       src={experience.icon}
                       alt={experience.company_name}
-                      className='w-[70%] h-[70%] object-contain p-1'
+                      className='w-[85%] h-[85%] object-contain p-1'
+                      style={{
+                        borderRadius: experience.company_name === "The Orange Club" || experience.company_name === "Career Pakistan" || experience.company_name === "Bytewise" ? "50%" : "0"
+                      }}
                     />
                   </div>
                 </motion.div>
