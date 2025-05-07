@@ -19,7 +19,7 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
   const [showDesktopLinks, setShowDesktopLinks] = useState(false);
   const [showHint, setShowHint] = useState(false);
   
-  // Social media data with more vibrant hover colors and base colors for dark/light mode
+
   const socials = [
     {
       name: 'LinkedIn',
