@@ -223,3 +223,10 @@ body:has(.card[data-color="green"]:hover) {
   75% { transform: rotate(2deg) scale(1.05); }
 }
 
+
+@media (max-width: 768px) {
+  body:has(.home-section) {
+    overflow: hidden;
+  }
+}
+

@@ -453,7 +453,7 @@ const Home = ({ introPlayed, setIntroPlayed }) => {
   }, [showIntro]);
 
   return (
-    <section className='w-full h-screen relative'>
+    <section className='w-full h-screen relative overflow-hidden home-section'>
       {/* Audio element */}
       <audio 
         ref={audioRef} 
