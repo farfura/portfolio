@@ -233,7 +233,7 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
                 >
                   <a
                     href={social.url}
-                    download={social.download}
+                    download={social.isCvDownload && !isIOSSafari() && social.download ? social.download : undefined}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.name}

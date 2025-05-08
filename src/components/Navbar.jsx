@@ -6,7 +6,13 @@ import cvPdf from '../assets/Fareeha_Nadeem_Cv.pdf';
 // Direct path for reliable access
 const PUBLIC_PDF_PATH = '/assets/Fareeha_Nadeem_Cv.pdf';
 
-// Helper to detect if using Safari on iOS - REMOVED
+// Helper to detect if using Safari on iOS
+const isIOSSafari = () => {
+  const userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : '';
+  const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
+  const isIOS = /iPad|iPhone|iPod/.test(userAgent);
+  return isIOS && isSafari;
+};
 
 const linkTextContainer = {
   hover: {
@@ -29,18 +35,24 @@ const Navbar = () => {
   const handleDownload = (e) => {
     e.preventDefault();
     
-    // Create a link and click it - use public path for reliability
-    const link = document.createElement('a');
-    link.href = PUBLIC_PDF_PATH;
-    link.setAttribute('download', 'Fareeha_Nadeem_CV.pdf');
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    
-    // Clean up
-    setTimeout(() => {
-      document.body.removeChild(link);
-    }, 100);
+    if (isIOSSafari()) {
+      window.open(PUBLIC_PDF_PATH, '_blank');
+    } else {
+      // Create a link and click it - use public path for reliability
+      const link = document.createElement('a');
+      link.href = PUBLIC_PDF_PATH;
+      link.setAttribute('download', 'Fareeha_Nadeem_CV.pdf');
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      
+      // Clean up
+      setTimeout(() => {
+        if (document.body.contains(link)) { // Check if link is still in body
+          document.body.removeChild(link);
+        }
+      }, 100);
+    }
   };
 
   return (
