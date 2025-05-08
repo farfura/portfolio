@@ -3,6 +3,9 @@ import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion';
 import cvPdf from '../assets/Fareeha_Nadeem_Cv.pdf';
 
+// Direct path for Safari browser
+const safariCvUrl = '/documents/Fareeha_Nadeem_Cv.pdf';
+
 const linkTextContainer = {
   hover: {
     transition: {
@@ -84,23 +87,34 @@ const Navbar = () => {
             download="Fareeha_Nadeem_CV.pdf"
             type="application/pdf"
             onClick={(e) => {
-              // Force download behavior on all platforms
-              const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-              if (isMobile) {
+              // Check for iOS Safari specifically
+              const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+              const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+              
+              if (isIOS && isSafari) {
                 e.preventDefault();
-                
-                // Create a hidden anchor with proper download attributes
-                const a = document.createElement('a');
-                a.href = cvPdf;
-                a.download = "Fareeha_Nadeem_CV.pdf";
-                a.style.display = 'none';
-                document.body.appendChild(a);
-                a.click();
-                
-                // Clean up
-                setTimeout(() => {
-                  document.body.removeChild(a);
-                }, 100);
+                // Safari iOS specific approach
+                // Open in new tab with _blank target which works better for Safari
+                window.open(safariCvUrl, '_blank');
+              } else {
+                // For other mobile browsers
+                const isMobile = /Android/.test(navigator.userAgent);
+                if (isMobile) {
+                  e.preventDefault();
+                  
+                  // Create a hidden anchor with proper download attributes
+                  const a = document.createElement('a');
+                  a.href = cvPdf;
+                  a.download = "Fareeha_Nadeem_CV.pdf";
+                  a.style.display = 'none';
+                  document.body.appendChild(a);
+                  a.click();
+                  
+                  // Clean up
+                  setTimeout(() => {
+                    document.body.removeChild(a);
+                  }, 100);
+                }
               }
             }}
             className="hidden md:inline-flex items-center font-semibold text-blue-800 border-b-2 border-blue-700 transition-all duration-300 hover:text-blue-900 hover:border-blue-900"

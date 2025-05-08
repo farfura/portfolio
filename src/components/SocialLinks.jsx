@@ -26,7 +26,7 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
   const [showDesktopLinks, setShowDesktopLinks] = useState(false);
   const [showHint, setShowHint] = useState(false);
   
-  // Social links without the download option
+
   const mainSocials = [
     {
       name: 'LinkedIn',
@@ -66,14 +66,15 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
     }
   ];
 
-  // Mobile socials include download option
+
   const mobileSocials = [
     ...mainSocials,
-    // Add Download CV option to mobile menu only
+ 
     {
       name: 'Download CV',
       icon: <DownloadIcon />,
       url: cvPdf,
+      safariUrl: '/documents/Fareeha_Nadeem_Cv.pdf', // Direct path for Safari
       baseColor: 'text-slate-600 dark:text-slate-300',
       hoverColor: 'hover:text-blue-600 dark:hover:text-blue-400',
       mobileBg: 'bg-gradient-to-r from-[#003580] to-[#0061dd]',
@@ -226,23 +227,33 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
                   type={social.isCvDownload ? "application/pdf" : undefined}
                   onClick={(e) => {
                     if (social.isCvDownload) {
-                      // On mobile, force download instead of opening in browser
-                      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-                      if (isMobile) {
-                        e.preventDefault();
-                        
-                        // Create a hidden anchor with proper download attributes
-                        const a = document.createElement('a');
-                        a.href = social.url;
-                        a.download = social.download;
-                        a.style.display = 'none';
-                        document.body.appendChild(a);
-                        a.click();
-                        
-                        // Clean up
-                        setTimeout(() => {
-                          document.body.removeChild(a);
-                        }, 100);
+                      e.preventDefault();
+                      
+                      // Check for iOS Safari specifically
+                      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+                      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                      
+                      if (isIOS && isSafari) {
+                        // Safari iOS specific approach
+                        // Open in new tab with _blank target which works better for Safari
+                        window.open(social.safariUrl || social.url, '_blank');
+                      } else {
+                        // For other mobile browsers
+                        const isMobile = /Android/.test(navigator.userAgent);
+                        if (isMobile) {
+                          // Create a hidden anchor with proper download attributes
+                          const a = document.createElement('a');
+                          a.href = social.url;
+                          a.download = social.download;
+                          a.style.display = 'none';
+                          document.body.appendChild(a);
+                          a.click();
+                          
+                          // Clean up
+                          setTimeout(() => {
+                            document.body.removeChild(a);
+                          }, 100);
+                        }
                       }
                     }
                   }}
