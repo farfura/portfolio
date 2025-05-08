@@ -225,7 +225,7 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
                     variants={iconItemVariants}
                   >
                     <Link
-                      to="/view-cv?download=true"
+                      to="/view-cv"
                       aria-label={social.name}
                       className={`${social.mobileBg} text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl transform transition-all duration-200 hover:scale-110 hover:brightness-110`}
                     >
