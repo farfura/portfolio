@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import cvPdf from '../assets/Fareeha_Nadeem_Cv.pdf';
 
 const UsersIcon = () => (
@@ -75,6 +76,7 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
       icon: <DownloadIcon />,
       url: cvPdf,
       safariUrl: '/documents/Fareeha_Nadeem_Cv.pdf', // Direct path for Safari
+      viewCvPath: '/view-cv', // New path for CV viewer
       baseColor: 'text-slate-600 dark:text-slate-300',
       hoverColor: 'hover:text-blue-600 dark:hover:text-blue-400',
       mobileBg: 'bg-gradient-to-r from-[#003580] to-[#0061dd]',
@@ -217,51 +219,34 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
               exit="exit"
             >
               {mobileSocials.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.name}
-                  download={social.download}
-                  type={social.isCvDownload ? "application/pdf" : undefined}
-                  onClick={(e) => {
-                    if (social.isCvDownload) {
-                      e.preventDefault();
-                      
-                      // Check for iOS Safari specifically
-                      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-                      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-                      
-                      if (isIOS && isSafari) {
-                        // Safari iOS specific approach
-                        // Open in new tab with _blank target which works better for Safari
-                        window.open(social.safariUrl || social.url, '_blank');
-                      } else {
-                        // For other mobile browsers
-                        const isMobile = /Android/.test(navigator.userAgent);
-                        if (isMobile) {
-                          // Create a hidden anchor with proper download attributes
-                          const a = document.createElement('a');
-                          a.href = social.url;
-                          a.download = social.download;
-                          a.style.display = 'none';
-                          document.body.appendChild(a);
-                          a.click();
-                          
-                          // Clean up
-                          setTimeout(() => {
-                            document.body.removeChild(a);
-                          }, 100);
-                        }
-                      }
-                    }
-                  }}
-                  className={`${social.mobileBg} text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl transform transition-all duration-200 hover:scale-110 hover:brightness-110`}
-                  variants={iconItemVariants}
-                >
-                  {React.cloneElement(social.icon, { width: 24, height: 24, className:"fill-current" })}
-                </motion.a>
+                social.isCvDownload ? (
+                  <motion.div
+                    key={social.name}
+                    variants={iconItemVariants}
+                  >
+                    <Link
+                      to="/view-cv?download=true"
+                      aria-label={social.name}
+                      className={`${social.mobileBg} text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl transform transition-all duration-200 hover:scale-110 hover:brightness-110`}
+                    >
+                      {React.cloneElement(social.icon, { width: 24, height: 24, className: "fill-current" })}
+                    </Link>
+                  </motion.div>
+                ) : (
+                  <motion.a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.name}
+                    download={social.download}
+                    type={social.isCvDownload ? "application/pdf" : undefined}
+                    className={`${social.mobileBg} text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl transform transition-all duration-200 hover:scale-110 hover:brightness-110`}
+                    variants={iconItemVariants}
+                  >
+                    {React.cloneElement(social.icon, { width: 24, height: 24, className: "fill-current" })}
+                  </motion.a>
+                )
               ))}
             </motion.div>
           )}

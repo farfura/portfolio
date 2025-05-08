@@ -1,7 +1,7 @@
-// Helper function to get responsive image sources
+
 export function getResponsiveImageSrc(imageName) {
   try {
-    // Just return the original image without optimization
+    
     return {
       src: imageName,
       srcSet: undefined,
@@ -9,15 +9,14 @@ export function getResponsiveImageSrc(imageName) {
     };
   } catch (e) {
     console.error("Error generating responsive image sources:", e);
-    return { src: imageName }; // Fallback to original image
+    return { src: imageName }; 
   }
 }
 
-// Function to preload critical images
+
 export function preloadCriticalImages(imageArray) {
-  if (typeof window === 'undefined') return; // Skip on server-side
-  
-  // Use requestIdleCallback for non-blocking preloading
+  if (typeof window === 'undefined') return; 
+ 
   const preloadImage = (src) => {
     if (!src) return;
     
@@ -36,7 +35,7 @@ export function preloadCriticalImages(imageArray) {
     }
   };
   
-  // Preload each image
+ 
   imageArray.forEach(img => {
     if (typeof img === 'string') {
       preloadImage(img);
@@ -46,12 +45,11 @@ export function preloadCriticalImages(imageArray) {
   });
 }
 
-// Calculate aspect ratio for image placeholders
 export function calculateAspectRatio(width, height) {
   return (height / width) * 100;
 }
 
-// Generate appropriate sizes attribute for img tag
+
 export function getSizesAttribute(defaultSize = '100vw') {
   return defaultSize;
 } 
