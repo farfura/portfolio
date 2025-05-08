@@ -111,8 +111,7 @@ const About = () => {
         variants={fadeIn("", "tween", 0.2, 0.8)}
       >
         <p className='text-lg leading-relaxed'>
-          With a strong passion for web development, I excel in designing dynamic and intuitive web applications. My skills encompass both front-end and back-end development, and I have a particular affinity for working with React, Tailwind, and Next.js.
-        </p>
+        Driven by a strong passion for web development, I specialize in building dynamic and user-friendly web applications. With expertise in both front-end and back-end development, I particularly enjoy working with modern technologies like React, Tailwind CSS, and Next.js to create seamless digital experiences.        </p>
       </motion.div>
 
       <motion.div 
@@ -193,8 +192,9 @@ const About = () => {
 
     
         <div ref={timelineRef} className='relative mt-12'> 
+          {/* Timeline with the original animation style */}
           <motion.div 
-            className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-300 to-blue-500 origin-top" // Added gradient, origin-top
+            className="absolute left-8 top-[2.625rem] bottom-0 w-0.5 bg-gradient-to-b from-orange-500 via-purple-500 to-black origin-top"
             style={{ scaleY: lineScaleY }} 
           />
           
