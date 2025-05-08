@@ -33,26 +33,27 @@ const letterVariant = {
 const Navbar = () => {
   // Handle direct download without navigation
   const handleDownload = (e) => {
-    e.preventDefault();
-    
     if (isIOSSafari()) {
-      window.open(PUBLIC_PDF_PATH, '_blank');
-    } else {
-      // Create a link and click it - use public path for reliability
-      const link = document.createElement('a');
-      link.href = PUBLIC_PDF_PATH;
-      link.setAttribute('download', 'Fareeha_Nadeem_CV.pdf');
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click();
-      
-      // Clean up
-      setTimeout(() => {
-        if (document.body.contains(link)) { // Check if link is still in body
-          document.body.removeChild(link);
-        }
-      }, 100);
+      // For iOS Safari, allow the default link behavior (href + target='_blank')
+      // No e.preventDefault() and no window.open() here.
+      return;
     }
+    
+    // For other browsers, prevent default and use custom download logic
+    e.preventDefault();
+    const link = document.createElement('a');
+    link.href = PUBLIC_PDF_PATH;
+    link.setAttribute('download', 'Fareeha_Nadeem_CV.pdf');
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    
+    // Clean up
+    setTimeout(() => {
+      if (document.body.contains(link)) { // Check if link is still in body
+        document.body.removeChild(link);
+      }
+    }, 100);
   };
 
   return (
@@ -116,6 +117,8 @@ const Navbar = () => {
           <a 
             href={PUBLIC_PDF_PATH}
             onClick={handleDownload}
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:inline-flex items-center font-semibold text-blue-800 border-b-2 border-blue-700 transition-all duration-300 hover:text-blue-900 hover:border-blue-900"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
