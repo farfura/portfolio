@@ -5,12 +5,14 @@ import cvPdf from '../assets/Fareeha_Nadeem_Cv.pdf';
 
 // Direct path for reliable access
 const PUBLIC_PDF_PATH = '/assets/Fareeha_Nadeem_Cv.pdf';
+const GOOGLE_DRIVE_CV_URL = 'https://drive.google.com/file/d/13Ed_S3MDHA5aJ-6kzMXIiiywE-c7sf2F/view?usp=sharing';
 
-// Helper to detect if using Safari on iOS
-const isIOSSafari = () => {
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  return isIOS && isSafari;
+// Helper to detect if using an iOS device
+const isIOSDevice = () => {
+  const userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : '';
+  // const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent); // No longer needed for this logic
+  const isIOS = /iPad|iPhone|iPod/.test(userAgent);
+  return isIOS; // Simplified to just check for iOS
 };
 
 const UsersIcon = () => (
@@ -232,8 +234,8 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
                   variants={iconItemVariants}
                 >
                   <a
-                    href={social.url}
-                    download={social.isCvDownload && !isIOSSafari() && social.download ? social.download : undefined}
+                    href={social.isCvDownload && isIOSDevice() ? GOOGLE_DRIVE_CV_URL : social.url}
+                    download={social.isCvDownload && !isIOSDevice() && social.download ? social.download : undefined}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.name}

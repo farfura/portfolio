@@ -5,13 +5,13 @@ import cvPdf from '../assets/Fareeha_Nadeem_Cv.pdf';
 
 // Direct path for reliable access
 const PUBLIC_PDF_PATH = '/assets/Fareeha_Nadeem_Cv.pdf';
+const GOOGLE_DRIVE_CV_URL = 'https://drive.google.com/file/d/13Ed_S3MDHA5aJ-6kzMXIiiywE-c7sf2F/view?usp=sharing';
 
-// Helper to detect if using Safari on iOS
-const isIOSSafari = () => {
+// Helper to detect if using an iOS device
+const isIOSDevice = () => {
   const userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : '';
-  const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
   const isIOS = /iPad|iPhone|iPod/.test(userAgent);
-  return isIOS && isSafari;
+  return isIOS;
 };
 
 const linkTextContainer = {
@@ -33,16 +33,17 @@ const letterVariant = {
 const Navbar = () => {
   // Handle direct download without navigation
   const handleDownload = (e) => {
-    if (isIOSSafari()) {
-      // For iOS Safari, allow the default link behavior (href + target='_blank')
-      // No e.preventDefault() and no window.open() here.
+    if (isIOSDevice()) {
+      // For iOS devices, open the Google Drive link in a new tab
+      e.preventDefault(); // Prevent default since we are using window.open
+      window.open(GOOGLE_DRIVE_CV_URL, '_blank');
       return;
     }
     
-    // For other browsers, prevent default and use custom download logic
+    // For other browsers, prevent default and use custom download logic with the direct PDF path
     e.preventDefault();
     const link = document.createElement('a');
-    link.href = PUBLIC_PDF_PATH;
+    link.href = PUBLIC_PDF_PATH; // Use direct PDF path for non-iOS
     link.setAttribute('download', 'Fareeha_Nadeem_CV.pdf');
     link.style.display = 'none';
     document.body.appendChild(link);
@@ -115,7 +116,7 @@ const Navbar = () => {
             </motion.div>
           </NavLink>
           <a 
-            href={PUBLIC_PDF_PATH}
+            href={isIOSDevice() ? GOOGLE_DRIVE_CV_URL : PUBLIC_PDF_PATH}
             onClick={handleDownload}
             target="_blank"
             rel="noopener noreferrer"
