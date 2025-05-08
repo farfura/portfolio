@@ -123,7 +123,7 @@ const ProjectCardComponent = ({ project, index }) => {
             alt={altText}
             className='w-full h-full'
             fallbackSrc={fallbackImage}
-            priority={index < 2} // Only prioritize the first 2 images
+            priority={true}
           />
         </div>
 

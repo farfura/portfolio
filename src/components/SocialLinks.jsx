@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
+import cvPdf from '../assets/Fareeha_Nadeem_Cv.pdf';
 
 const UsersIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 24 24">
@@ -14,13 +14,20 @@ const CloseIcon = () => (
   </svg>
 );
 
+// Download Icon for the CV download button
+const DownloadIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+  </svg>
+);
+
 const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showDesktopLinks, setShowDesktopLinks] = useState(false);
   const [showHint, setShowHint] = useState(false);
   
-
-  const socials = [
+  // Social links without the download option
+  const mainSocials = [
     {
       name: 'LinkedIn',
       icon: (
@@ -56,6 +63,21 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
       baseColor: 'text-slate-600 dark:text-slate-300',
       hoverColor: 'hover:text-rose-600 dark:hover:text-rose-500',
       mobileBg: 'bg-rose-500'
+    }
+  ];
+
+  // Mobile socials include download option
+  const mobileSocials = [
+    ...mainSocials,
+    // Add Download CV option to mobile menu only
+    {
+      name: 'Download CV',
+      icon: <DownloadIcon />,
+      url: cvPdf,
+      baseColor: 'text-slate-600 dark:text-slate-300',
+      hoverColor: 'hover:text-blue-600 dark:hover:text-blue-400',
+      mobileBg: 'bg-gradient-to-r from-[#003580] to-[#0061dd]',
+      download: 'Fareeha_Nadeem_CV.pdf'
     }
   ];
 
@@ -192,13 +214,14 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
               animate="animate"
               exit="exit"
             >
-              {socials.map((social) => (
+              {mobileSocials.map((social) => (
                 <motion.a
                   key={social.name}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.name}
+                  download={social.download}
                   className={`${social.mobileBg} text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl transform transition-all duration-200 hover:scale-110 hover:brightness-110`}
                   variants={iconItemVariants}
                 >
@@ -217,7 +240,7 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
           initial="initial"
           animate="animate"
         >
-          {socials.map((social) => (
+          {mainSocials.map((social) => (
             <motion.a
               key={social.name}
               href={social.url}
@@ -243,7 +266,7 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
           animate="animate"
         >
           <div className="bg-white dark:bg-slate-800 bg-opacity-80 dark:bg-opacity-80 backdrop-blur-lg px-8 py-4 rounded-full shadow-2xl flex items-center gap-8 border border-slate-200 dark:border-slate-700">
-            {socials.map((social) => (
+            {mainSocials.map((social) => (
               <motion.a
                 key={social.name}
                 href={social.url}
