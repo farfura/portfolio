@@ -14,20 +14,22 @@ const ViewCV = () => {
     // Trigger download automatically if query param is present
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('download') === 'true') {
-      const link = document.createElement('a');
-      link.href = cvPdf;
-      link.download = 'Fareeha_Nadeem_CV.pdf';
-      document.body.appendChild(link);
-      link.click();
+      // Simple timeout to make sure the page is loaded first
       setTimeout(() => {
-        document.body.removeChild(link);
+        window.location.href = cvPdf;
       }, 100);
     }
   }, []);
 
+  // For safer Safari handling
+  const openInNewTab = (e) => {
+    e.preventDefault();
+    window.open(cvPdf, '_blank');
+  };
+
   return (
     <div className="pt-16 px-4 min-h-screen flex flex-col">
-      <div className="max-w-5xl mx-auto w-full flex justify-between items-center mb-4">
+      <div className="max-w-5xl mx-auto w-full mb-4">
         <Link 
           to="/" 
           className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
@@ -60,8 +62,7 @@ const ViewCV = () => {
           <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md justify-center">
             <a
               href={cvPdf}
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={openInNewTab}
               className="flex items-center justify-center bg-white border border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
