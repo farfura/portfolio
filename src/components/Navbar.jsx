@@ -82,6 +82,27 @@ const Navbar = () => {
           <a 
             href={cvPdf} 
             download="Fareeha_Nadeem_CV.pdf"
+            type="application/pdf"
+            onClick={(e) => {
+              // Force download behavior on all platforms
+              const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+              if (isMobile) {
+                e.preventDefault();
+                
+                // Create a hidden anchor with proper download attributes
+                const a = document.createElement('a');
+                a.href = cvPdf;
+                a.download = "Fareeha_Nadeem_CV.pdf";
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                
+                // Clean up
+                setTimeout(() => {
+                  document.body.removeChild(a);
+                }, 100);
+              }
+            }}
             className="hidden md:inline-flex items-center font-semibold text-blue-800 border-b-2 border-blue-700 transition-all duration-300 hover:text-blue-900 hover:border-blue-900"
             target="_blank"
             rel="noopener noreferrer"

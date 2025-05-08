@@ -77,7 +77,8 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
       baseColor: 'text-slate-600 dark:text-slate-300',
       hoverColor: 'hover:text-blue-600 dark:hover:text-blue-400',
       mobileBg: 'bg-gradient-to-r from-[#003580] to-[#0061dd]',
-      download: 'Fareeha_Nadeem_CV.pdf'
+      download: 'Fareeha_Nadeem_CV.pdf',
+      isCvDownload: true
     }
   ];
 
@@ -222,6 +223,29 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
                   rel="noopener noreferrer"
                   aria-label={social.name}
                   download={social.download}
+                  type={social.isCvDownload ? "application/pdf" : undefined}
+                  onClick={(e) => {
+                    if (social.isCvDownload) {
+                      // On mobile, force download instead of opening in browser
+                      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                      if (isMobile) {
+                        e.preventDefault();
+                        
+                        // Create a hidden anchor with proper download attributes
+                        const a = document.createElement('a');
+                        a.href = social.url;
+                        a.download = social.download;
+                        a.style.display = 'none';
+                        document.body.appendChild(a);
+                        a.click();
+                        
+                        // Clean up
+                        setTimeout(() => {
+                          document.body.removeChild(a);
+                        }, 100);
+                      }
+                    }
+                  }}
                   className={`${social.mobileBg} text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl transform transition-all duration-200 hover:scale-110 hover:brightness-110`}
                   variants={iconItemVariants}
                 >
