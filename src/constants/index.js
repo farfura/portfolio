@@ -1,4 +1,4 @@
-import { meta, shopify, starbucks, tesla, bytewise, career, hero, skillsprint, bank, ecom, university, movie, toc } from "../assets/images";
+import { meta, shopify, starbucks, tesla, bytewise, career, skillsprint, bank, ecom, university, movie, toc } from "../assets/images";
 import {
     car,
     contact,

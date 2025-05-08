@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
-import React, { useRef } from "react";
+import React, { useRef, lazy, Suspense } from "react";
 
 import { CTA } from "../components/CTA.jsx";
 import { projects } from "../constants";
 import { arrow } from "../assets/icons";
+import OptimizedImage from "../components/OptimizedImage.jsx";
+
+// Lazy load components
+const ProjectCard = lazy(() => import("../components/ProjectCard.jsx"));
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -65,7 +69,9 @@ const getCardThemeStyles = (theme) => {
   return themeMap[theme] || 'bg-white dark:bg-slate-800/80'; 
 };
 
-const ProjectCard = ({ project, index }) => {
+// Extract ProjectCard to a separate component for better code organization
+// This component will be lazy loaded
+const ProjectCardComponent = ({ project, index }) => {
   const ref = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -96,6 +102,7 @@ const ProjectCard = ({ project, index }) => {
   const imageToDisplay = project.showcaseImageUrl || `https://picsum.photos/seed/${index + 1}/600/400`;
   const altText = `${project.name} showcase ${project.showcaseImageUrl ? '' : '(placeholder)'}`;
   const bgThemeClass = getCardThemeStyles(project.theme);
+  const fallbackImage = `https://picsum.photos/seed/fallback${index}/600/400`;
 
   return (
     <motion.div
@@ -111,11 +118,12 @@ const ProjectCard = ({ project, index }) => {
         className="transform-gpu"
       >
         <div className='w-full h-48 sm:h-56 overflow-hidden rounded-t-xl' style={{ transform: "translateZ(10px)" }}>
-          <img
+          <OptimizedImage
             src={imageToDisplay}
             alt={altText}
-            className='w-full h-full object-cover transition-transform duration-350 ease-in-out'
-            onError={(e) => { e.target.src = `https://picsum.photos/seed/fallback${index}/600/400`; e.target.alt = `${project.name} showcase (fallback placeholder)`; }}
+            className='w-full h-full'
+            fallbackSrc={fallbackImage}
+            priority={index < 2} // Only prioritize the first 2 images
           />
         </div>
 
@@ -172,9 +180,11 @@ const Projects = () => {
           animate='show'
           style={{ perspective: "1200px" }}
         >
-          {projects.map((project, index) => (
-            <ProjectCard key={project.name} project={project} index={index} />
-          ))}
+          <Suspense fallback={<div className="col-span-full flex justify-center py-20">Loading projects...</div>}>
+            {projects.map((project, index) => (
+              <ProjectCardComponent key={project.name} project={project} index={index} />
+            ))}
+          </Suspense>
         </motion.div>
       </div>
 
