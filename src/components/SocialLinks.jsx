@@ -84,9 +84,7 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
     {
       name: 'Download CV',
       icon: <DownloadIcon />,
-      url: cvPdf,
-      safariUrl: '/documents/Fareeha_Nadeem_Cv.pdf', // Direct path for Safari
-      viewCvPath: '/view-cv', // New path for CV viewer
+      url: PUBLIC_PDF_PATH,
       baseColor: 'text-slate-600 dark:text-slate-300',
       hoverColor: 'hover:text-blue-600 dark:hover:text-blue-400',
       mobileBg: 'bg-gradient-to-r from-[#003580] to-[#0061dd]',
@@ -229,59 +227,21 @@ const SocialLinks = ({ desktopStyle = 'bottomBar' }) => {
               exit="exit"
             >
               {mobileSocials.map((social) => (
-                social.isCvDownload ? (
-                  <motion.div
-                    key={social.name}
-                    variants={iconItemVariants}
-                  >
-                    {isIOSSafari() ? (
-                      // For iOS Safari, navigate to view-cv page
-                      <Link
-                        to="/view-cv"
-                        aria-label={social.name}
-                        className={`${social.mobileBg} text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl transform transition-all duration-200 hover:scale-110 hover:brightness-110`}
-                      >
-                        {React.cloneElement(social.icon, { width: 24, height: 24, className: "fill-current" })}
-                      </Link>
-                    ) : (
-                      // For other browsers, trigger direct download
-                      <a
-                        href={PUBLIC_PDF_PATH}
-                        aria-label={social.name}
-                        download="Fareeha_Nadeem_CV.pdf"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          const link = document.createElement('a');
-                          link.href = PUBLIC_PDF_PATH;
-                          link.setAttribute('download', 'Fareeha_Nadeem_CV.pdf');
-                          link.style.display = 'none';
-                          document.body.appendChild(link);
-                          link.click();
-                          setTimeout(() => {
-                            document.body.removeChild(link);
-                          }, 100);
-                        }}
-                        className={`${social.mobileBg} text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl transform transition-all duration-200 hover:scale-110 hover:brightness-110`}
-                      >
-                        {React.cloneElement(social.icon, { width: 24, height: 24, className: "fill-current" })}
-                      </a>
-                    )}
-                  </motion.div>
-                ) : (
-                  <motion.a
-                    key={social.name}
+                <motion.div
+                  key={social.name}
+                  variants={iconItemVariants}
+                >
+                  <a
                     href={social.url}
+                    download={social.download}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.name}
-                    download={social.download}
-                    type={social.isCvDownload ? "application/pdf" : undefined}
                     className={`${social.mobileBg} text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl transform transition-all duration-200 hover:scale-110 hover:brightness-110`}
-                    variants={iconItemVariants}
                   >
                     {React.cloneElement(social.icon, { width: 24, height: 24, className: "fill-current" })}
-                  </motion.a>
-                )
+                  </a>
+                </motion.div>
               ))}
             </motion.div>
           )}
